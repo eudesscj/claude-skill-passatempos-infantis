@@ -8,7 +8,7 @@ Uma **skill do Claude** que gera **passatempos infantis prontos para imprimir**,
 
 ## Destaques
 
-- **4 níveis de dificuldade**, do 1º ano ao 7º ano em diante, com regras por nível: tamanho das palavras, tipos de dica e direções do caça-palavras.
+- **5 níveis de dificuldade**, do 1º ano ao 7º ano em diante, com regras por nível: tamanho das palavras, tipos de dica e direções do caça-palavras.
 - **Não repete conteúdo:** guarda um histórico das palavras, temas e curiosidades já usados (na memória do Claude, quando disponível) e evita repeti-los nas próximas gerações.
 - **Economiza papel:** jogos menores dividem a mesma folha, e o gerador mede a altura real de cada um para decidir.
 - **Respostas conferíveis:** o gerador imprime um relatório (palavras colocadas, erros de encaixe) que o Claude usa para corrigir antes de entregar.

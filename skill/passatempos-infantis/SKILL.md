@@ -15,12 +15,12 @@ Para economizar impressão, os jogos menores dividem a mesma folha:
 - **Folha 3:** criptograma + desafio de contas.
 - **Folha 4:** palavras embaralhadas + labirinto.
 
-O gerador mede a altura real de cada jogo. Se a dupla não couber numa folha (por exemplo, um criptograma longo no nível 4), ele separa os dois automaticamente. As folhas não têm campo de nome nem data.
+O gerador mede a altura real de cada jogo. Se a dupla não couber numa folha (por exemplo, um criptograma longo no nível 5), ele separa os dois automaticamente. As folhas não têm campo de nome nem data.
 
 ## Modo automático (padrão)
 
 Quando o usuário só chamar a skill, sem detalhes, **não pergunte nada**. Gere com estes padrões:
-- **Nível 2** (3º–4º ano).
+- **Nível 2** (3º–4º ano). Os outros níveis só são usados quando o usuário pedir ("nível 3", "5º ano").
 - **Os seis jogos:** cruzadinha, caça-palavras, criptograma, desafio de contas, palavras embaralhadas e labirinto (4 folhas de jogos).
 - **Tema escolhido por você** para o caça-palavras, diferente dos que já estão no histórico.
 - **Palavras novas,** que não estejam no histórico.
@@ -32,39 +32,45 @@ Se o usuário disser algo junto ("nível 3", "só caça-palavras", "sem contas",
 | Nível | Série / idade | Total | figura | figura_complete | texto | Tamanho das palavras |
 |---|---|---|---|---|---|---|
 | 1 Fácil | 1º–2º ano (6–7) | 10 | 8 | 2 | 0 | 3–6 letras |
-| 2 Médio | 3º–4º ano (8–10) | 14 | 6 | 3 | 5 | 3–9 |
-| 3 Difícil | 5º–6º ano (10–12) | 18 | 5 | 3 | 10 | 3–10 |
-| 4 Desafio | 7º ano+ (12+) | 20 | 3 | 2 | 15 | até 12 |
+| 2 Médio | 3º–4º ano (8–10) | 20 | 9 | 5 | 6 | 3–9 |
+| 3 Intermediário | 5º ano (10–11) | 20 | 6 | 4 | 10 | 3–9 |
+| 4 Difícil | 6º ano (11–12) | 22 | 7 | 4 | 11 | 3–10 |
+| 5 Desafio | 7º ano+ (12+) | 24 | 4 | 3 | 17 | até 12 |
+
+A grade ocupa a folha inteira, com casas de cerca de 14 mm a partir do nível 2.
 
 Tipos de dica de texto liberados por nível:
 - **N1:** só figuras de coisas do dia a dia, mais figura_complete bem simples.
 - **N2:** contrário, plural, feminino/masculino, palavra composta para completar e conhecimento do dia a dia ("TEM 7 DIAS", "A ABELHA FAZ").
-- **N3:** tudo do N2, mais conhecimento escolar (capitais, planetas, figuras geométricas, década, século, dúzia).
-- **N4:** tudo do N3, mais sinônimo, definição, ciências e história do Brasil.
+- **N3:** tudo do N2, mais conhecimento escolar simples (por exemplo "CAPITAL DO PAÍS", "TEM 3 LADOS", "DEZ ANOS", "DOZE OVOS").
+- **N4:** tudo do N3, mais conhecimento escolar mais amplo (outras capitais, planetas, século, figuras geométricas).
+- **N5:** tudo do N4, mais sinônimo, definição, ciências e história do Brasil.
 
-As figuras acompanham o nível: no N1 e no N2, coisas conhecidas; do N3 em diante, objetos menos comuns (telescópio, ampulheta, ábaco).
+As figuras acompanham o nível: do N1 ao N3, coisas conhecidas; do N4 em diante, objetos menos comuns (telescópio, ampulheta, ábaco).
 
 Regras das palavras da cruzadinha:
 - A resposta pode vir com acento no JSON, porque o gerador remove acentos, cedilha, hífen e espaços. Mesmo assim, prefira palavras que continuem naturais sem acento.
-- O texto da dica deve ter no máximo cerca de 16 caracteres, nenhuma palavra com mais de 10 letras, e ser escrito em MAIÚSCULAS.
-- `figura_complete`: a figura mostra a palavra inteira e o texto traz a lacuna, por exemplo figura de guarda-chuva com "GUARDA-___", resposta CHUVA. Outros formatos: "BARRA DE ___", "SUCO DE ___", "ARCO-___".
-- Nenhuma resposta pode repetir, e uma dica não pode conter a própria resposta. Evite dicas ambíguas.
+- **Dicas curtas:** o texto da dica e a legenda do `figura_complete` usam palavras de **no máximo 6 letras** (a legenda pode quebrar em espaços e depois de hífen) e são escritos em MAIÚSCULAS. Prefira "OPOSTO DE ALTO" a "CONTRÁRIO DE ALTO". O gerador garante fonte mínima de 6,5 pt e descarta, com o aviso `DICA LONGA DEMAIS`, o que não couber.
+- `figura_complete`: a figura mostra a palavra inteira e o texto traz a lacuna, por exemplo figura de laranja com "SUCO DE ___", resposta LARANJA. Outros formatos curtos: "BARRA DE ___", "BOLA DE ___", "URSO DE ___", "ARCO-___". Evite legendas com palavra longa, como "GUARDA-___" ou "CACHORRO-___".
+- Nenhuma resposta pode repetir. Uma dica não pode conter a própria resposta **nem a resposta de outra palavra da cruzadinha** (por exemplo, não use "A ABELHA FAZ" se ABELHA também for resposta). Evite dicas ambíguas.
 - Gere cerca do **dobro** de candidatos do alvo de cada tipo, porque nem toda palavra encaixa na grade.
 
 ## Caça-palavras: níveis
 
 | Nível | Diagrama | Palavras | Direções | Texto |
 |---|---|---|---|---|
-| 1 | 9×10 | 5–6 | → ↓ | 3–4 frases |
-| 2 | 12×16 | 7–8 | → ↓ ↘ | ~80 palavras |
-| 3 | 14×18 | 9–10 | → ↓ ↘ ↗ | ~110 palavras |
-| 4 | 16×18 | 11–12 | todas, inclusive de trás para frente | ~140 palavras |
+| 1 | 12×12 | 5–6 | → ↓ | 3–4 frases |
+| 2 | 17×18 | 7–8 | → ↓ ↘ | ~80 palavras |
+| 3 | 18×18 | 9 | → ↓ ↘ ↗ | ~95 palavras |
+| 4 | 18×19 | 10 | → ↓ ↘ ↗ | ~110 palavras |
+| 5 | 19×20 | 11–12 | todas, inclusive de trás para frente | ~140 palavras |
+
+O diagrama é grande para o número de palavras: assim elas ficam mais escondidas. A folha não tem desenhos.
 
 Regras do caça-palavras:
 - **Texto original e educativo,** sobre um tema adequado à série: natureza, corpo humano, espaço, animais, sustentabilidade, alimentação, invenções. Tom leve, terminando com uma mensagem ou curiosidade. Título curto e simpático.
 - As palavras para procurar ficam marcadas no texto com `**PALAVRA**`, em maiúsculas e com acento normal. O gerador destaca em vermelho e remove os acentos na grade.
-- Entre 3 e 9 letras (até 12 no nível 4). Nenhuma palavra pode estar contida em outra (SOL e SOLO, por exemplo), e nenhuma pode ser destacada duas vezes.
-- Escolha 3 ou 4 figuras decorativas do tema na biblioteca de desenhos.
+- Entre 3 e 9 letras (até 12 no nível 5). Nenhuma palavra pode estar contida em outra (SOL e SOLO, por exemplo), e nenhuma pode ser destacada duas vezes.
 - O gerador garante que cada palavra aparece uma única vez e que palavras na mesma direção não se sobrepõem.
 
 ## Criptograma: níveis
@@ -73,8 +79,9 @@ Regras do caça-palavras:
 |---|---|---|---|
 | 1 | 3–5 palavras | 6 | 0 |
 | 2 | 6–9 palavras | 4 | 0 |
-| 3 | 9–12 palavras | 2 | 0 |
-| 4 | 12–15 palavras | 0 | 3 (deduzidas pelo contexto) |
+| 3 | 7–10 palavras | 3 | 0 |
+| 4 | 9–12 palavras | 2 | 0 |
+| 5 | 12–15 palavras | 0 | 3 (deduzidas pelo contexto) |
 
 O gerador sorteia as letras reveladas e as escondidas.
 
@@ -82,18 +89,21 @@ Regras do criptograma:
 - A frase é uma **curiosidade verdadeira**, divertida e adequada à idade, por exemplo "O polvo tem três corações e sangue azul!". Prefira curiosidades sobre animais, corpo humano, espaço e natureza. Confira se o fato é correto.
 - No máximo 22 letras diferentes. Pode ter acento, porque o gerador remove. Pontuação permitida: `, . ! ?`.
 - A curiosidade não pode repetir o histórico.
-- Escolha 1 ou 2 figuras relacionadas à curiosidade.
+- O criptograma não tem desenhos.
 
 ## Desafio de contas (quadrado mágico): níveis
 
-Um quadrado 3×3 (ou mais, com `"quantidade"`) com os números de 1 a 9 sem repetir, as operações entre eles e os resultados de cada linha e coluna. A criança completa as casas vazias.
+Dois quadrados 3×3 lado a lado (mude com `"quantidade"`), cada um com os números de 1 a 9 sem repetir, as operações entre eles e os resultados de cada linha e coluna. A criança completa as casas vazias.
 
 | Nível | Operações | Casas vazias |
 |---|---|---|
 | 1 | + − | 3 |
-| 2 | + − × | 5 |
-| 3 | + − × | 6 |
+| 2 | + − × ÷ | 5 |
+| 3 | + − × ÷ | 6 |
 | 4 | + − × ÷ | 7 |
+| 5 | + − × ÷ | 7 |
+
+Do nível 2 em diante, cada quadrado usa pelo menos uma vez cada operação, e a divisão é sempre exata.
 
 O gerador cria tudo sozinho e garante três coisas:
 - **Solução única.**
@@ -111,15 +121,16 @@ São 6 palavras (use `total` para mudar, sempre um número par). Cada palavra ap
 | 1 | 3–5 letras | desenho + 1ª letra já preenchida |
 | 2 | 5–8 letras | pista curta em texto (categoria) |
 | 3 | 6–9 letras | pista curta em texto (categoria) |
-| 4 | 7–10 letras | nenhuma |
+| 4 | 7–9 letras | pista curta em texto (categoria) |
+| 5 | 7–10 letras | nenhuma |
 
 Regras das palavras embaralhadas:
 - **Nível 1:** cada item precisa de `figura` (nome de pasta da biblioteca de desenhos).
-- **Níveis 2 e 3:** cada item precisa de `pista`, uma categoria curta que ajude sem entregar a resposta ("ANIMAL", "FRUTA", "MEIO DE TRANSPORTE", "ESTAÇÃO DO ANO", "MATERIAL ESCOLAR"). Varie as categorias entre as palavras.
-- **Nível 4:** só a palavra.
+- **Níveis 2 a 4:** cada item precisa de `pista`, uma categoria curta que ajude sem entregar a resposta ("ANIMAL", "FRUTA", "MEIO DE TRANSPORTE", "ESTAÇÃO DO ANO", "MATERIAL ESCOLAR"). Varie as categorias entre as palavras.
+- **Nível 5:** só a palavra.
 - As palavras não podem repetir as da cruzadinha da mesma geração nem as do histórico.
 - O gerador embaralha garantindo que o começo e o fim da palavra não fiquem no lugar.
-- Mande 2 ou 3 candidatas a mais. Itens sem figura (N1) ou sem pista (N2–3) são ignorados.
+- Mande 2 ou 3 candidatas a mais. Itens sem figura (N1) ou sem pista (N2–4) são ignorados.
 
 ## Labirinto: níveis
 
@@ -129,8 +140,9 @@ O labirinto **cresce para ocupar todo o espaço livre da folha**: abaixo das pal
 |---|---|---|
 | 1 | 10 mm | ~15 × 11 casas |
 | 2 | 6,5 mm | ~24 × 18 casas |
-| 3 | 5,5 mm | ~28 × 21 casas |
-| 4 | 4,5 mm | ~35 × 26 casas |
+| 3 | 6 mm | ~26 × 19 casas |
+| 4 | 5,5 mm | ~28 × 21 casas |
+| 5 | 4,5 mm | ~35 × 26 casas |
 
 - Sempre existe exatamente um caminho da entrada até a saída. A resposta mostra esse caminho em laranja.
 - Personagem e objetivo: opcionalmente escolha um par temático com `inicio` e `fim` (nomes de figuras) e uma `frase` ("Ajude o coelho a chegar até a cenoura!"). Se não informar, o gerador sorteia um par pronto (ratinho/queijo, coelho/cenoura, cachorro/osso, abelha/flor, macaco/banana, foguete/planeta, pinguim/peixe, urso/mel).
@@ -177,21 +189,19 @@ As palavras e os temas usados ficam na memória persistente, no arquivo `/areas/
    {
      "cruzadinha": {
        "nivel": 2, "titulo": "Cruzadinha",
-       "alvo": {"figura": 6, "figura_complete": 3, "texto": 5},
+       "alvo": {"figura": 9, "figura_complete": 5, "texto": 6},
        "itens": [
          {"resposta": "Pinguim", "tipo": "figura", "figura": "Penguin"},
-         {"resposta": "Chuva", "tipo": "figura_complete", "figura": "Umbrella", "texto": "GUARDA-___"},
-         {"resposta": "Baixo", "tipo": "texto", "texto": "CONTRÁRIO DE ALTO"}
+         {"resposta": "Laranja", "tipo": "figura_complete", "figura": "Tangerine", "texto": "SUCO DE ___"},
+         {"resposta": "Baixo", "tipo": "texto", "texto": "OPOSTO DE ALTO"}
        ]
      },
      "caca_palavras": {
        "nivel": 2, "titulo": "A viagem da água",
-       "figuras": ["Sun with face", "Cloud with rain", "Droplet", "Water wave"],
        "texto": "Quando o **SOL** esquenta os **RIOS**, a água vira **VAPOR** ..."
      },
      "criptograma": {
-       "nivel": 2, "frase": "O polvo tem três corações e sangue azul!",
-       "figuras": ["Octopus", "Magnifying glass tilted left"]
+       "nivel": 2, "frase": "O polvo tem três corações e sangue azul!"
      },
      "contas": {"nivel": 2},
      "embaralhadas": {
@@ -207,7 +217,7 @@ As palavras e os temas usados ficam na memória persistente, no arquivo `/areas/
    cd ~/passatempos && python3 passatempos.py entrada.json passatempos.pdf --assets fe/assets
    ```
    Saem dois arquivos: `passatempos.pdf` (jogos) e `passatempos_respostas.pdf` (respostas).
-   - **Cruzadinha:** o relatório mostra `COLOCADAS x/total` e a contagem por tipo. Se ficar mais de uma palavra abaixo do alvo, ou se algum tipo ficar zerado sem querer, acrescente candidatos desse tipo (de preferência com letras comuns, como A, E, O, R) e rode de novo. Itens em `SEM DESENHO` foram ignorados.
+   - **Cruzadinha:** o relatório mostra `COLOCADAS x/total` e a contagem por tipo. Se ficar mais de uma palavra abaixo do alvo, ou se algum tipo ficar zerado sem querer, acrescente candidatos desse tipo (de preferência com letras comuns, como A, E, O, R) e rode de novo. Itens em `SEM DESENHO` ou `DICA LONGA DEMAIS` foram ignorados.
    - **Caça-palavras:** um `ERRO` indica palavra contida em outra, palavra repetida ou palavras que não couberam. Ajuste o texto e rode de novo.
    - **Criptograma:** um `ERRO` indica letras diferentes demais. Encurte a frase.
    - **Embaralhadas:** itens em `SEM DESENHO` ou `SEM PISTA` foram ignorados. Confira se ficaram 6 palavras.
@@ -247,7 +257,9 @@ def uri(assets, nome):
 CREDITO = '<p class="foot">Ilustrações: Fluent Emoji (Microsoft, licença MIT)</p>'
 
 # ---------- cruzadinha ----------
-CZ_NIVEIS = {1: (10, (11, 9)), 2: (14, (13, 11)), 3: (18, (16, 13)), 4: (20, (17, 14))}
+CZ_NIVEIS = {1: (10, (11, 9)), 2: (20, (17, 13)), 3: (20, (17, 13)), 4: (22, (17, 14)), 5: (24, (18, 15))}
+FONTE_MIN = 2.29  # mm (6,5 pt): dica de texto que não couber nesse tamanho é descartada
+LARG = 0.72  # largura média de uma letra maiúscula em negrito, em relação ao tamanho da fonte
 DIRS2 = {"A": (0, 1), "D": (1, 0)}
 PASTEL = ["#cfe8ff", "#d6f5d6", "#ffe0b3", "#f9d0e6", "#fff3a8", "#e3d7ff", "#c8f0ec"]
 
@@ -330,16 +342,23 @@ def cruzadinha(cfg, assets, tentativas):
     total, (R, C) = CZ_NIVEIS[nivel]
     total = int(cfg.get("total", total))
     alvo = cfg["alvo"]
-    itens, faltando = [], []
+    itens, faltando, longas = [], [], []
+    cm_est = min(186 / C, 235 / R, 18)
     for it in cfg["itens"]:
         it = dict(it, resp=normaliza(it["resposta"]))
         if it["tipo"] not in alvo:
             continue
+        if it["tipo"] in ("texto", "figura_complete"):
+            pedacos = re.split(r"\s+|(?<=-)", it["texto"])  # a legenda pode quebrar em espaços e depois de hífen
+            if max(len(x) for x in pedacos if x) * LARG * FONTE_MIN > cm_est - 3.0:
+                longas.append(it["texto"]); continue
         if it["tipo"] != "texto" and not svg_path(assets, it["figura"]):
             faltando.append(it["figura"]); continue
         itens.append(it)
     if faltando:
         print("CRUZADINHA - SEM DESENHO (ignorados):", ", ".join(faltando))
+    if longas:
+        print("CRUZADINHA - DICA LONGA DEMAIS (ignoradas):", " | ".join(longas))
     _, grid, clues, placed, cont = max((cz_tentar(s, itens, alvo, total, R, C) for s in range(tentativas)),
                                        key=lambda x: x[0])
     print(f"CRUZADINHA - COLOCADAS {len(placed)}/{total} | por tipo: {cont} | alvo: {alvo}")
@@ -350,7 +369,7 @@ def cruzadinha(cfg, assets, tentativas):
     r0, r1 = min(k[0] for k in cells), max(k[0] for k in cells)
     c0, c1 = min(k[1] for k in cells), max(k[1] for k in cells)
     rows, cols = r1 - r0 + 1, c1 - c0 + 1
-    cm = min(186 / cols, 215 / rows, 18)
+    cm = min(186 / cols, 235 / rows, 18)
 
     def tabela(resp):
         out = []
@@ -362,18 +381,18 @@ def cruzadinha(cfg, assets, tentativas):
                     out.append(f'<td class="L"><div class="in">{grid[k] if resp else ""}</div></td>')
                 elif k in clues:
                     it, d = clues[k]
-                    pad = "padding-right:3.8mm;" if d == "A" else "padding-bottom:3.2mm;"
-                    folga = 4.6 if d == "A" else 1.2
+                    pad = "padding-right:2.4mm;" if d == "A" else "padding-bottom:2.4mm;"
+                    folga = 3.0 if d == "A" else 1.2
                     seta = '<span class="ar ra">&#9654;</span>' if d == "A" else '<span class="ar rd">&#9660;</span>'
                     if it["tipo"] == "figura":
                         inner = f'<img class="fig" src="{uri(assets, it["figura"])}">'
                     elif it["tipo"] == "figura_complete":
-                        fs = min(cm * 0.15, (cm - folga) / (len(it["texto"]) * 0.74))
+                        fs = max(FONTE_MIN * 0.95, min(cm * 0.15, (cm - folga) / (len(it["texto"]) * LARG)))
                         inner = (f'<div class="mx" style="{pad}"><img src="{uri(assets, it["figura"])}">'
                                  f'<div style="font-size:{fs:.2f}mm">{it["texto"]}</div></div>')
                     else:
                         lw = max(len(x) for x in it["texto"].split())
-                        fs = min(cm * 0.17, (cm - folga) / (lw * 0.78))
+                        fs = max(FONTE_MIN, min(cm * 0.17, (cm - folga) / (lw * LARG)))
                         inner = f'<div class="tx" style="font-size:{fs:.2f}mm;{pad}">{it["texto"]}</div>'
                     bg = PASTEL[(r * 3 + c) % len(PASTEL)]
                     out.append(f'<td class="Q" style="background:{bg}"><div class="in">{inner}{seta}</div></td>')
@@ -389,11 +408,11 @@ def cruzadinha(cfg, assets, tentativas):
 .cz .in {{ width:{cm-0.6:.2f}mm; height:{cm-0.6:.2f}mm; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; }}
 .cz img.fig {{ width:{cm*0.7:.2f}mm; height:{cm*0.7:.2f}mm; position:relative; left:-{cm*0.06:.2f}mm; top:-{cm*0.04:.2f}mm; }}
 .cz .mx {{ display:flex; flex-direction:column; align-items:center; width:100%; box-sizing:border-box; }}
-.cz .mx img {{ width:{cm*0.5:.2f}mm; height:{cm*0.5:.2f}mm; }}
-.cz .mx div {{ font-weight:bold; line-height:1; margin-top:0.3mm; white-space:nowrap; }}
+.cz .mx img {{ width:{cm*0.42:.2f}mm; height:{cm*0.42:.2f}mm; }}
+.cz .mx div {{ font-weight:bold; line-height:1; margin-top:0.3mm; text-align:center; }}
 .cz .tx {{ font-weight:bold; line-height:1.05; color:#222; text-align:center; width:100%; box-sizing:border-box; padding:0 0.3mm; }}
-.cz .ar {{ position:absolute; color:#c2255c; font-size:{cm*0.26:.2f}mm; line-height:1; }}
-.cz .ra {{ right:0.3mm; top:50%; transform:translateY(-50%); }} .cz .rd {{ bottom:0.1mm; left:50%; transform:translateX(-50%); }}
+.cz .ar {{ position:absolute; color:#c2255c; font-size:{cm*0.2:.2f}mm; line-height:1; }}
+.cz .ra {{ right:0.2mm; top:50%; transform:translateY(-50%); }} .cz .rd {{ bottom:0.1mm; left:50%; transform:translateX(-50%); }}
 .cz .banner {{ background:#c2255c; color:#fff; border-radius:3.5mm; text-align:center; padding:1.2mm 5mm 1.6mm; margin-bottom:4mm; }}
 .cz .banner h1 {{ margin:0; font-size:16pt; color:#ffd43b; text-shadow:2px 2px 0 rgba(0,0,0,.35); }}
 .cz .banner p {{ margin:0.2mm 0 0; font-size:9.5pt; }}"""
@@ -409,8 +428,9 @@ def cruzadinha(cfg, assets, tentativas):
 
 # ---------- caça-palavras ----------
 DIRS8 = {"H": (0, 1), "V": (1, 0), "D": (1, 1), "AD": (-1, 1), "HR": (0, -1), "VR": (-1, 0), "DR": (-1, -1)}
-CP_NIVEIS = {1: (["H", "V"], (9, 10)), 2: (["H", "V", "D"], (12, 16)), 3: (["H", "V", "D", "AD"], (14, 18)),
-             4: (["H", "V", "D", "AD", "HR", "VR", "DR"], (16, 18))}
+CP_NIVEIS = {1: (["H", "V"], (12, 12)), 2: (["H", "V", "D"], (17, 18)), 3: (["H", "V", "D", "AD"], (18, 18)),
+             4: (["H", "V", "D", "AD"], (18, 19)), 5: (["H", "V", "D", "AD", "HR", "VR", "DR"], (19, 20))}
+CP_ALTURA = {1: 150, 2: 165, 3: 160, 4: 155, 5: 140}  # altura máxima da grade (mm), deixando espaço para o texto
 FILL = "BCDFGHJKLMNPQRSTVWXZ" * 3 + "AEIOU"
 CORES = ["#ffd8a8", "#b2f2bb", "#a5d8ff", "#fcc2d7", "#ffec99", "#d0bfff", "#99e9f2", "#ffc9c9", "#c0eb75", "#eebefa"]
 
@@ -454,7 +474,8 @@ def cp_montar(palavras, dirs, R, C, seed):
 
 
 def caca(cfg, assets):
-    dirs, (R, C) = CP_NIVEIS[int(cfg.get("nivel", 2))]
+    nivel = int(cfg.get("nivel", 2))
+    dirs, (R, C) = CP_NIVEIS[nivel]
     palavras = [normaliza(w) for w in re.findall(r"\*\*(.+?)\*\*", cfg["texto"])]
     if len(set(palavras)) != len(palavras):
         sys.exit("ERRO caça-palavras: palavra destacada repetida no texto.")
@@ -471,7 +492,7 @@ def caca(cfg, assets):
     print(f"CAÇA-PALAVRAS - {len(palavras)} palavras | direções {dirs} | grade {R}x{C}")
     print("  " + ", ".join(palavras))
     figs = [f for f in cfg.get("figuras", []) if svg_path(assets, f)]
-    cell = min(180 / C, 9.5, 125 / R)
+    cell = min(180 / C, 9.5, CP_ALTURA[nivel] / R)
     destaque = re.sub(r"\*\*(.+?)\*\*", r'<b class="hl">\1</b>', cfg["texto"])
     deco = "".join(f'<img class="deco" src="{uri(assets, n)}">' for n in figs)
 
@@ -489,7 +510,7 @@ def caca(cfg, assets):
 .cp .banner h1 {{ margin:0; font-size:16pt; color:#ffd43b; text-shadow:2px 2px 0 #0b2a55; }}
 .cp .banner p {{ margin:0.2mm 0 0; font-size:9.5pt; }}
 .cp h2 {{ text-align:center; color:#2b8a3e; font-size:14pt; margin:3mm 0 2mm; }}
-.cp .txt {{ font-size:13pt; line-height:1.55; text-align:justify; margin:0 4mm; }}
+.cp .txt {{ font-size:13pt; line-height:1.55; text-align:justify; margin:0 4mm 4mm; }}
 .cp .hl {{ color:#e03131; }}
 .cp .decos {{ text-align:center; margin:4mm 0; }} .cp .deco {{ width:20mm; height:20mm; margin:0 6mm; }}
 .cp .box {{ background:#1c4a8c; border-radius:5mm; padding:4mm; width:fit-content; margin:0 auto; }}
@@ -498,7 +519,7 @@ def caca(cfg, assets):
     titulo = cfg["titulo"]
     instr = "Procure e marque, no diagrama de letras,<br>as palavras em destaque no texto."
     jogo = (f'<div class="sec cp"><div class="banner"><h1>Caça-palavras</h1><p>{instr}</p></div><h2>{titulo}</h2>'
-            f'<p class="txt">{destaque}</p><div class="decos">{deco}</div>'
+            f'<p class="txt">{destaque}</p>'
             f'<div class="box"><table>{grade(False)}</table></div></div>')
     resp = (f'<div class="sec cp"><div class="banner"><h1>Respostas</h1><p>Caça-palavras</p></div><h2>{titulo}</h2>'
             f'<p class="foot" style="font-size:12pt">Palavras: {" · ".join(sorted(palavras))}</p>'
@@ -507,7 +528,7 @@ def caca(cfg, assets):
 
 
 # ---------- criptograma ----------
-CR_NIVEIS = {1: (6, 0), 2: (4, 0), 3: (2, 0), 4: (0, 3)}  # letras reveladas na frase, letras escondidas na chave
+CR_NIVEIS = {1: (6, 0), 2: (4, 0), 3: (3, 0), 4: (2, 0), 5: (0, 3)}  # letras reveladas na frase, letras escondidas na chave
 SIMBOLOS = list("★●▲■◆♥♣♠☀☂✿☾✚✱⬢♪✈☘⚑☎✂⚓♛☯")
 
 
@@ -543,7 +564,7 @@ def criptograma(cfg, assets, seed=None):
         dica = ("Dica: algumas letras já estão no lugar para ajudar." if dadas else "Sem letras de ajuda: é com você!") + extra
         return (f'<div class="banner"><h1>{"Respostas" if resp else "Criptograma"}</h1>'
                 f'<p>{"Criptograma" if resp else "Use a chave secreta para descobrir a mensagem. Troque cada símbolo pela letra certa!"}</p></div>'
-                f'<h3>Chave secreta</h3><div class="key">{key}</div><div class="decos">{figs}</div>'
+                f'<h3>Chave secreta</h3><div class="key">{key}</div>'
                 f'<h3>Mensagem escondida</h3><div class="msg">{"".join(pals)}</div>'
                 f'{"" if resp else f"<p class=dica>{dica}</p>"}')
 
@@ -573,7 +594,7 @@ def normaliza_frase(f):
 
 
 # ---------- desafio de contas (quadrado mágico) ----------
-QD_NIVEIS = {1: ("+-", 3), 2: ("+-×", 5), 3: ("+-×", 6), 4: ("+-×÷", 7)}  # operações, casas vazias
+QD_NIVEIS = {1: ("+-", 3), 2: ("+-×÷", 5), 3: ("+-×÷", 6), 4: ("+-×÷", 7), 5: ("+-×÷", 7)}  # operações, casas vazias
 
 
 def _ev(a, o, b):
@@ -601,7 +622,7 @@ def _quadrado(rnd, ops, vazias):
         rr, rc = calc(n)
         if None in rr or None in rc:
             continue
-        if "÷" in ops and not any("÷" in o for o in orow + ocol):
+        if not all(any(op in o for o in orow + ocol) for op in ops):  # todas as operações do nível aparecem
             continue
         # sem ambiguidade de precedência: × ou ÷ na 2ª conta só se a 1ª também for × ou ÷
         if any(o2 in "×÷" and o1 in "+-" for o1, o2 in orow + ocol):
@@ -626,7 +647,7 @@ def contas(cfg, seed=None):
     rnd = random.Random(seed)
     nivel = int(cfg.get("nivel", 2))
     ops, vazias = QD_NIVEIS[nivel]
-    qs = [_quadrado(rnd, ops, vazias) for _ in range(int(cfg.get("quantidade", 1)))]
+    qs = [_quadrado(rnd, ops, vazias) for _ in range(int(cfg.get("quantidade", 2)))]
     print(f"DESAFIO DE CONTAS - N{nivel} | {len(qs)} quadrados | operações {ops} | {vazias} casas vazias")
 
     def tab(q, resp):
@@ -646,7 +667,7 @@ def contas(cfg, seed=None):
 
     def corpo(resp):
         blocos = "".join(f'<div class="qb">{f"<h3>Quadrado {i+1}</h3>" if len(qs) > 1 else ""}{tab(q, resp)}</div>' for i, q in enumerate(qs))
-        enun = ("Complete com os números de <b>1 a 9</b>, sem repetir, para que todas as contas deem certo. "
+        enun = ("Complete com os números de <b>1 a 9</b>, sem repetir em cada quadrado, para que todas as contas deem certo. "
                 "Faça as contas da esquerda para a direita e de cima para baixo.")
         return (f'<div class="banner"><h1>{"Respostas" if resp else "Desafio de contas"}</h1>'
                 f'<p>{"Desafio de contas" if resp else "Quadrado mágico das contas"}</p></div>'
@@ -656,8 +677,8 @@ def contas(cfg, seed=None):
 .qd .banner h1 { margin:0; font-size:16pt; color:#ffd43b; text-shadow:2px 2px 0 rgba(0,0,0,.35); }
 .qd .banner p { margin:0.2mm 0 0; font-size:9.5pt; }
 .qd .enun { text-align:center; font-size:12pt; margin:3mm 8mm 1mm; }
-.qd h3 { color:#e8590c; font-size:16pt; margin:4mm 0 1mm; text-align:center; }
-.qd .qs { display:flex; flex-direction:column; align-items:center; }
+.qd h3 { color:#e8590c; font-size:11.5pt; margin:2mm 0 1mm; text-align:center; }
+.qd .qs { display:flex; flex-direction:row; justify-content:space-evenly; align-items:flex-start; flex-wrap:wrap; }
 .qd table.q { margin:0 auto; border-collapse:separate; border-spacing:0.5mm; }
 .qd table.q td { width:9.5mm; height:9.5mm; text-align:center; font-size:15pt; font-weight:bold; padding:0; }
 .qd td.n { border:2px solid #333; border-radius:2mm; background:#fff3bf; }
@@ -670,8 +691,8 @@ def contas(cfg, seed=None):
 
 
 # ---------- palavras embaralhadas ----------
-# nível -> tipo de ajuda: N1 figura + 1ª letra, N2/N3 pista em texto, N4 nenhuma
-EM_NIVEIS = {1: "figura", 2: "pista", 3: "pista", 4: "nada"}
+# nível -> tipo de ajuda: N1 figura + 1ª letra, N2 a N4 pista em texto, N5 nenhuma
+EM_NIVEIS = {1: "figura", 2: "pista", 3: "pista", 4: "pista", 5: "nada"}
 
 
 def embaralhadas(cfg, assets, seed=None):
@@ -729,7 +750,7 @@ def embaralhadas(cfg, assets, seed=None):
 
 
 # ---------- labirinto ----------
-LB_NIVEIS = {1: 10, 2: 6.5, 3: 5.5, 4: 4.5}  # mm por célula (menor = mais corredores = mais difícil)
+LB_NIVEIS = {1: 10, 2: 6.5, 3: 6, 4: 5.5, 5: 4.5}  # mm por célula (menor = mais corredores = mais difícil)
 LB_IC = 12  # tamanho das figuras de entrada/saída (mm)
 LB_PARES = [("Mouse", "Cheese wedge"), ("Rabbit", "Carrot"), ("Dog", "Bone"), ("Honeybee", "Blossom"),
             ("Monkey", "Banana"), ("Rocket", "Ringed planet"), ("Penguin", "Fish"), ("Bear", "Honey pot")]
