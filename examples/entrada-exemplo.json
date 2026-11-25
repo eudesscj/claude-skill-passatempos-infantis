@@ -1,0 +1,43 @@
+{
+  "cruzadinha": {
+    "nivel": 2, "titulo": "Cruzadinha",
+    "alvo": {"figura": 6, "figura_complete": 3, "texto": 5},
+    "itens": [
+      {"resposta": "Pinguim", "tipo": "figura", "figura": "Penguin"},
+      {"resposta": "Coruja", "tipo": "figura", "figura": "Owl"},
+      {"resposta": "Girafa", "tipo": "figura", "figura": "Giraffe"},
+      {"resposta": "Tartaruga", "tipo": "figura", "figura": "Turtle"},
+      {"resposta": "Banana", "tipo": "figura", "figura": "Banana"},
+      {"resposta": "Polvo", "tipo": "figura", "figura": "Octopus"},
+      {"resposta": "Gato", "tipo": "figura", "figura": "Cat"},
+      {"resposta": "Cenoura", "tipo": "figura", "figura": "Carrot"},
+      {"resposta": "Peixe", "tipo": "figura", "figura": "Fish"},
+      {"resposta": "Casa", "tipo": "figura", "figura": "House"},
+      {"resposta": "Chuva", "tipo": "figura_complete", "figura": "Umbrella", "texto": "GUARDA-___"},
+      {"resposta": "Iris", "tipo": "figura_complete", "figura": "Rainbow", "texto": "ARCO-___"},
+      {"resposta": "Cream", "tipo": "figura_complete", "figura": "Ice cream", "texto": "ICE ___"},
+      {"resposta": "Lupa", "tipo": "figura_complete", "figura": "Magnifying glass tilted left", "texto": "OLHA PELA ___"},
+      {"resposta": "Baixo", "tipo": "texto", "texto": "CONTRÁRIO DE ALTO"},
+      {"resposta": "Semana", "tipo": "texto", "texto": "TEM 7 DIAS"},
+      {"resposta": "Mel", "tipo": "texto", "texto": "A ABELHA FAZ"},
+      {"resposta": "Noite", "tipo": "texto", "texto": "CONTRÁRIO DE DIA"},
+      {"resposta": "Leoa", "tipo": "texto", "texto": "FEMININO DE LEÃO"},
+      {"resposta": "Frio", "tipo": "texto", "texto": "CONTRÁRIO DE QUENTE"},
+      {"resposta": "Mar", "tipo": "texto", "texto": "ÁGUA SALGADA"},
+      {"resposta": "Ovos", "tipo": "texto", "texto": "PLURAL DE OVO"},
+      {"resposta": "Lua", "tipo": "texto", "texto": "BRILHA À NOITE"}
+    ]
+  },
+  "caca_palavras": {
+    "nivel": 2, "titulo": "A viagem da água",
+    "figuras": ["Sun with face", "Cloud with rain", "Droplet", "Water wave"],
+    "texto": "Quando o **SOL** esquenta os **RIOS** e o **MAR**, a água vira **VAPOR** e sobe para o céu. Lá em cima, o vapor esfria e forma as **NUVENS**. Quando as nuvens ficam pesadas, cai a **CHUVA**, que molha a **TERRA** e enche as **LAGOAS**. E o ciclo recomeça!"
+  },
+  "criptograma": {"nivel": 2, "frase": "O polvo tem três corações e sangue azul!", "figuras": ["Octopus", "Magnifying glass tilted left"]},
+  "contas": {"nivel": 2},
+  "embaralhadas": {"nivel": 2, "itens": [
+    {"resposta": "Girafa", "pista": "Animal"}, {"resposta": "Bicicleta", "pista": "Meio de transporte"},
+    {"resposta": "Banana", "pista": "Fruta"}, {"resposta": "Tartaruga", "pista": "Animal"},
+    {"resposta": "Cenoura", "pista": "Legume"}, {"resposta": "Coruja", "pista": "Ave"}]},
+  "labirinto": {"nivel": 2, "inicio": "Rabbit", "fim": "Carrot", "frase": "Ajude o coelho a chegar até a cenoura!"}
+}
