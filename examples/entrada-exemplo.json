@@ -1,159 +1,186 @@
 {
  "cruzadinha": {
   "nivel": 2,
-  "titulo": "Cruzadinha",
-  "alvo": {
-   "figura": 9,
-   "figura_complete": 5,
-   "texto": 6
-  },
-  "itens": [
-   {
-    "resposta": "Pinguim",
+  "grade": "grade-exemplo.json",
+  "dicas": {
+   "PAPAGAIO": {
     "tipo": "figura",
-    "figura": "Penguin"
+    "figura": "Parrot"
    },
-   {
-    "resposta": "Coruja",
-    "tipo": "figura",
-    "figura": "Owl"
-   },
-   {
-    "resposta": "Girafa",
-    "tipo": "figura",
-    "figura": "Giraffe"
-   },
-   {
-    "resposta": "Tartaruga",
-    "tipo": "figura",
-    "figura": "Turtle"
-   },
-   {
-    "resposta": "Banana",
-    "tipo": "figura",
-    "figura": "Banana"
-   },
-   {
-    "resposta": "Polvo",
-    "tipo": "figura",
-    "figura": "Octopus"
-   },
-   {
-    "resposta": "Gato",
-    "tipo": "figura",
-    "figura": "Cat"
-   },
-   {
-    "resposta": "Cenoura",
-    "tipo": "figura",
-    "figura": "Carrot"
-   },
-   {
-    "resposta": "Peixe",
-    "tipo": "figura",
-    "figura": "Fish"
-   },
-   {
-    "resposta": "Casa",
+   "CASA": {
     "tipo": "figura",
     "figura": "House"
    },
-   {
-    "resposta": "Abacaxi",
+   "PERU": {
     "tipo": "figura",
-    "figura": "Pineapple"
+    "figura": "Turkey"
    },
-   {
-    "resposta": "Foguete",
+   "PAO": {
     "tipo": "figura",
-    "figura": "Rocket"
+    "figura": "Bread"
    },
-   {
-    "resposta": "Laranja",
-    "tipo": "figura_complete",
-    "figura": "Tangerine",
-    "texto": "SUCO DE ___"
+   "IMA": {
+    "tipo": "figura",
+    "figura": "Magnet"
    },
-   {
-    "resposta": "Chuva",
-    "tipo": "figura_complete",
-    "figura": "Umbrella",
-    "texto": "GUARDA-___"
+   "CAUBOI": {
+    "tipo": "figura",
+    "figura": "Cowboy hat face"
    },
-   {
-    "resposta": "Futebol",
-    "tipo": "figura_complete",
-    "figura": "Soccer ball",
-    "texto": "BOLA DE ___"
-   },
-   {
-    "resposta": "Pelucia",
-    "tipo": "figura_complete",
-    "figura": "Teddy bear",
-    "texto": "URSO DE ___"
-   },
-   {
-    "resposta": "Iris",
-    "tipo": "figura_complete",
-    "figura": "Rainbow",
-    "texto": "ARCO-___"
-   },
-   {
-    "resposta": "Lupa",
-    "tipo": "figura_complete",
-    "figura": "Magnifying glass tilted left",
-    "texto": "OLHA NA ___"
-   },
-   {
-    "resposta": "Baixo",
+   "AO": {
     "tipo": "texto",
-    "texto": "OPOSTO DE ALTO"
+    "texto": "VOGAIS DE SAPO"
    },
-   {
-    "resposta": "Semana",
+   "AR": {
     "tipo": "texto",
-    "texto": "TEM 7 DIAS"
+    "texto": "O ___ QUE RESPIRO"
    },
-   {
-    "resposta": "Mel",
+   "AS": {
     "tipo": "texto",
-    "texto": "A ABELHA FAZ"
+    "texto": "___ MENINAS"
    },
-   {
-    "resposta": "Noite",
+   "DE": {
     "tipo": "texto",
-    "texto": "OPOSTO DE DIA"
+    "texto": "BOLO ___ FUBÁ"
    },
-   {
-    "resposta": "Leoa",
+   "EM": {
     "tipo": "texto",
-    "texto": "FÊMEA DO LEÃO"
+    "texto": "___ CIMA"
    },
-   {
-    "resposta": "Frio",
+   "EU": {
     "tipo": "texto",
-    "texto": "OPOSTO DE QUENTE"
+    "texto": "___ E VOCÊ"
    },
-   {
-    "resposta": "Mar",
+   "MA": {
     "tipo": "texto",
-    "texto": "ÁGUA SALGADA"
+    "texto": "OPOSTO DE BOA"
    },
-   {
-    "resposta": "Lua",
+   "MI": {
     "tipo": "texto",
-    "texto": "BRILHA À NOITE"
+    "texto": "NOTA: DÓ, RÉ, ___"
+   },
+   "OS": {
+    "tipo": "texto",
+    "texto": "___ MENINOS"
+   },
+   "RA": {
+    "tipo": "texto",
+    "texto": "PARENTE DO SAPO"
+   },
+   "SE": {
+    "tipo": "texto",
+    "texto": "___ CHOVER"
+   },
+   "TU": {
+    "tipo": "texto",
+    "texto": "O MESMO QUE VOCÊ"
+   },
+   "ACO": {
+    "tipo": "texto",
+    "texto": "METAL FORTE"
+   },
+   "AVO": {
+    "tipo": "texto",
+    "texto": "MÃE DA MÃE"
+   },
+   "CAO": {
+    "tipo": "texto",
+    "texto": "O MESMO QUE CACHORRO"
+   },
+   "CEM": {
+    "tipo": "texto",
+    "texto": "DEZ VEZES DEZ"
+   },
+   "COR": {
+    "tipo": "texto",
+    "texto": "AZUL É UMA ___"
+   },
+   "DOR": {
+    "tipo": "texto",
+    "texto": "AI! QUE ___!"
+   },
+   "IPE": {
+    "tipo": "texto",
+    "texto": "ÁRVORE: ___-ROXO"
+   },
+   "LAR": {
+    "tipo": "texto",
+    "texto": "ONDE A GENTE MORA"
+   },
+   "MAO": {
+    "tipo": "texto",
+    "texto": "TEM CINCO DEDOS"
+   },
+   "MAU": {
+    "tipo": "texto",
+    "texto": "OPOSTO DE BOM"
+   },
+   "RIO": {
+    "tipo": "texto",
+    "texto": "ÁGUA QUE CORRE"
+   },
+   "RUA": {
+    "tipo": "texto",
+    "texto": "ONDE PASSAM OS CARROS"
+   },
+   "VAO": {
+    "tipo": "texto",
+    "texto": "ELES ___ À ESCOLA"
+   },
+   "VIU": {
+    "tipo": "texto",
+    "texto": "ELE ___ O FILME"
+   },
+   "ARCA": {
+    "tipo": "texto",
+    "texto": "BAÚ GRANDE"
+   },
+   "ARCO": {
+    "tipo": "texto",
+    "texto": "___ E FLECHA"
+   },
+   "AREA": {
+    "tipo": "texto",
+    "texto": "___ DE LAZER"
+   },
+   "GEMA": {
+    "tipo": "texto",
+    "texto": "CENTRO DO OVO"
+   },
+   "MAIS": {
+    "tipo": "texto",
+    "texto": "OPOSTO DE MENOS"
+   },
+   "PIOR": {
+    "tipo": "texto",
+    "texto": "OPOSTO DE MELHOR"
+   },
+   "SACO": {
+    "tipo": "texto",
+    "texto": "___ DE LIXO"
+   },
+   "ARMAR": {
+    "tipo": "texto",
+    "texto": "___ A BARRACA"
+   },
+   "IMPAR": {
+    "tipo": "texto",
+    "texto": "O 3 É UM NÚMERO ___"
+   },
+   "CARAMBA": {
+    "tipo": "texto",
+    "texto": "NOSSA! ___!"
    }
-  ]
+  }
  },
  "caca_palavras": {
   "nivel": 2,
-  "titulo": "A viagem da água",
-  "texto": "Quando o **SOL** esquenta os **RIOS** e o **MAR**, a água vira **VAPOR** e sobe para o céu. Lá em cima, o vapor esfria e forma as **NUVENS**. Quando as nuvens ficam pesadas, cai a **CHUVA**, que molha a **TERRA** e enche as **LAGOAS**. E o ciclo recomeça!"
+  "titulo": "O jardim das abelhas",
+  "texto": "No jardim, as **ABELHAS** voam de **FLOR** em flor. Elas recolhem o **NÉCTAR** e levam o **PÓLEN** de uma planta para outra. Assim nascem novas **SEMENTES** e **FRUTAS**. Na **COLMEIA**, o néctar vira **MEL**. Cuidar das abelhas é cuidar da natureza!"
  },
  "criptograma": {
   "nivel": 2,
-  "frase": "O polvo tem três corações e sangue azul!"
+  "frase": "O beija-flor bate as asas mais de cinquenta vezes por segundo!"
  },
  "contas": {
   "nivel": 2
@@ -170,27 +197,24 @@
     "pista": "Meio de transporte"
    },
    {
-    "resposta": "Banana",
+    "resposta": "Morango",
     "pista": "Fruta"
    },
    {
-    "resposta": "Tartaruga",
-    "pista": "Animal"
+    "resposta": "Caderno",
+    "pista": "Material escolar"
    },
    {
-    "resposta": "Cenoura",
-    "pista": "Legume"
+    "resposta": "Inverno",
+    "pista": "Estação do ano"
    },
    {
-    "resposta": "Coruja",
-    "pista": "Ave"
+    "resposta": "Tambor",
+    "pista": "Instrumento"
    }
   ]
  },
  "labirinto": {
-  "nivel": 2,
-  "inicio": "Rabbit",
-  "fim": "Carrot",
-  "frase": "Ajude o coelho a chegar até a cenoura!"
+  "nivel": 2
  }
 }
