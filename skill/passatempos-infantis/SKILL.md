@@ -1,11 +1,11 @@
 ---
 name: "passatempos-infantis"
-description: "Gera automaticamente passatempos infantis no estilo das revistinhas de passatempo (cruzadinha, caça-palavras, criptograma, contas, palavras embaralhadas, labirinto) em PDF A4, com respostas em arquivo separado. Use quando pedirem passatempos ou atividades para criança."
+description: "Gera automaticamente passatempos infantis estilo Coquetel Picolé (cruzadinha, caça-palavras, criptograma, contas, palavras embaralhadas, labirinto) em PDF A4, com respostas em arquivo separado. Use quando pedirem passatempos ou atividades para criança."
 ---
 
 # Passatempos infantis
 
-Gera passatempos no estilo das revistinhas infantis de passatempo e entrega **dois PDFs A4**:
+Gera passatempos no estilo dos livros Picolé (Coquetel) e entrega **dois PDFs A4**:
 - `passatempos.pdf`: só os jogos, para imprimir.
 - `passatempos_respostas.pdf`: as respostas, para o adulto guardar sem precisar imprimir.
 
@@ -29,31 +29,39 @@ Se o usuário disser algo junto ("nível 3", "só caça-palavras", "sem contas",
 
 ## Cruzadinha: níveis
 
-| Nível | Série / idade | Total | figura | figura_complete | texto | Tamanho das palavras |
-|---|---|---|---|---|---|---|
-| 1 Fácil | 1º–2º ano (6–7) | 10 | 8 | 2 | 0 | 3–6 letras |
-| 2 Médio | 3º–4º ano (8–10) | 20 | 9 | 5 | 6 | 3–9 |
-| 3 Intermediário | 5º ano (10–11) | 20 | 6 | 4 | 10 | 3–9 |
-| 4 Difícil | 6º ano (11–12) | 22 | 7 | 4 | 11 | 3–10 |
-| 5 Desafio | 7º ano+ (12+) | 24 | 4 | 3 | 17 | até 12 |
+A cruzadinha é de **grade cheia**, como a do Coquetel: não tem casa vazia, as dicas ficam dentro da grade e cada uma aponta com uma seta para a sua palavra. A linha de cima e a coluna da esquerda alternam dica e letra; as palavras que começam na borda usam seta dobrada (↳). Uma casa de dica pode segurar duas palavras, uma para a direita e outra para baixo; nesse caso ela aparece dividida ao meio.
 
-A grade ocupa a folha inteira, com casas de cerca de 14 mm a partir do nível 2.
+| Nível | Série / idade | Grade (linhas × colunas) | Maior palavra | Palavras (aprox.) |
+|---|---|---|---|---|
+| 1 Fácil | 1º–2º ano (6–7) | 9 × 7 | 6 | 24 |
+| 2 Médio | 3º–4º ano (8–10) | 12 × 9 | 8 | 40 |
+| 3 Intermediário | 5º ano (10–11) | 12 × 9 | 9 | 40 |
+| 4 Difícil | 6º ano (11–12) | 13 × 10 | 9 | 50 |
+| 5 Desafio | 7º ano+ (12+) | 13 × 10 | 10 | 50 |
+
+As palavras vêm do dicionário `palavras_cruzadinha.tsv`, documento do projeto: cerca de 4.650 palavras com nível de 1 a 5, tiradas do LexPorBR Infantil (licença CC BY-NC-SA 4.0) e revisadas à mão. O gerador prefere as palavras do nível pedido e usa as de até dois níveis acima só para fechar a grade. As de 2 letras vêm de uma lista fixa (EU, TU, NA, DO…) e de pares de vogais, no máximo dois por grade.
+
+A montagem tem duas etapas: o gerador escolhe as palavras; você escreve uma dica para cada palavra escolhida; o gerador desenha a folha.
+
+Só existem dois tipos de dica:
+- `figura`: o desenho **é** a resposta (desenho de sapo → SAPO). Use só quando o desenho existir no Fluent Emoji e não houver dúvida sobre o nome. Não use figura com texto para completar.
+- `texto`: em MAIÚSCULAS, com palavras de no máximo 6 letras; `___` marca a lacuna. Prefira "OPOSTO DE ALTO" a "CONTRÁRIO DE ALTO".
+
+Quantidade de figuras: no N1, figura sempre que houver desenho; no N2 e no N3, figura nas palavras concretas que têm desenho (por volta de 1/4 das dicas); no N4 e no N5, poucas figuras, de objetos menos comuns (telescópio, ampulheta, ábaco).
 
 Tipos de dica de texto liberados por nível:
-- **N1:** só figuras de coisas do dia a dia, mais figura_complete bem simples.
+- **N1:** completar frases bem simples ("___ DE LEITE") e conhecimento do dia a dia.
 - **N2:** contrário, plural, feminino/masculino, palavra composta para completar e conhecimento do dia a dia ("TEM 7 DIAS", "A ABELHA FAZ").
 - **N3:** tudo do N2, mais conhecimento escolar simples (por exemplo "CAPITAL DO PAÍS", "TEM 3 LADOS", "DEZ ANOS", "DOZE OVOS").
 - **N4:** tudo do N3, mais conhecimento escolar mais amplo (outras capitais, planetas, século, figuras geométricas).
 - **N5:** tudo do N4, mais sinônimo, definição, ciências e história do Brasil.
 
-As figuras acompanham o nível: do N1 ao N3, coisas conhecidas; do N4 em diante, objetos menos comuns (telescópio, ampulheta, ábaco).
+Palavras de 2 letras: use dica de completar ("___ PRAIA", "CASA ___ VOVÓ", "NOTA: ___, RÉ, MI"). Par de vogais: "VOGAIS DE X", com uma palavra cujas vogais sejam exatamente essas, na ordem ("EA" → "VOGAIS DE PERA").
 
-Regras das palavras da cruzadinha:
-- A resposta pode vir com acento no JSON, porque o gerador remove acentos, cedilha, hífen e espaços. Mesmo assim, prefira palavras que continuem naturais sem acento.
-- **Dicas curtas:** o texto da dica e a legenda do `figura_complete` usam palavras de **no máximo 6 letras** (a legenda pode quebrar em espaços e depois de hífen) e são escritos em MAIÚSCULAS. Prefira "OPOSTO DE ALTO" a "CONTRÁRIO DE ALTO". O gerador garante fonte mínima de 6,5 pt e descarta, com o aviso `DICA LONGA DEMAIS`, o que não couber.
-- `figura_complete`: a figura mostra a palavra inteira e o texto traz a lacuna, por exemplo figura de laranja com "SUCO DE ___", resposta LARANJA. Outros formatos curtos: "BARRA DE ___", "BOLA DE ___", "URSO DE ___", "ARCO-___". Evite legendas com palavra longa, como "GUARDA-___" ou "CACHORRO-___".
-- Nenhuma resposta pode repetir. Uma dica não pode conter a própria resposta **nem a resposta de outra palavra da cruzadinha** (por exemplo, não use "A ABELHA FAZ" se ABELHA também for resposta). Evite dicas ambíguas.
-- Gere cerca do **dobro** de candidatos do alvo de cada tipo, porque nem toda palavra encaixa na grade.
+Regras das dicas:
+- A dica não pode conter a própria resposta nem outra resposta de 3 letras ou mais da mesma grade (por exemplo, não use "A ABELHA FAZ" se ABELHA também for resposta). Evite dicas ambíguas.
+- As respostas já saem sem acento. Na dica, use acento normal.
+- Se uma palavra escolhida for imprópria ou difícil demais de explicar para a idade, acrescente-a ao arquivo de exclusão e monte a grade de novo.
 
 ## Caça-palavras: níveis
 
@@ -179,22 +187,28 @@ As palavras e os temas usados ficam na memória persistente, no arquivo `/areas/
    which google-chrome chromium chromium-browser 2>/dev/null | head -1
    ```
    As ilustrações são do Fluent Emoji (Microsoft, licença MIT). Os nomes das pastas estão em inglês, com inicial maiúscula (`Penguin`, `Hot dog`, `Cloud with rain`). Se não houver Chrome nem Chromium, informe o usuário e pare.
-3. **Grave o gerador** em `~/passatempos/passatempos.py` com o código completo da seção "Código do gerador".
-4. **Confira as figuras** que pretende usar antes de montar a entrada:
+3. **Grave os geradores:** `~/passatempos/passatempos.py` com o código da seção "Código do gerador" e `~/passatempos/cruzadinha.py` com o da seção "Código da cruzadinha".
+   Se for gerar a cruzadinha, leia o documento do projeto `palavras_cruzadinha.tsv` (ferramenta de projeto, `project_read`) e grave o conteúdo em `~/passatempos/palavras_cruzadinha.tsv`. Sem esse dicionário não dá para montar a cruzadinha: avise o usuário.
+4. **Monte a cruzadinha (etapa 1).** Grave em `~/passatempos/excluir.txt` as respostas de cruzadinha que já estão no histórico e rode:
+   ```bash
+   cd ~/passatempos && python3 cruzadinha.py montar --nivel 2 --excluir excluir.txt --saida grade.json
+   ```
+   Leva cerca de 2,5 minutos (`--tempo` muda isso). O relatório mostra a grade e a lista de palavras, marcando as que vêm de nível acima e as que dividem a casa com outra dica. Se alguma palavra for imprópria ou difícil demais de explicar, acrescente-a ao `excluir.txt` e rode de novo.
+5. **Confira as figuras** que pretende usar antes de montar a entrada:
    ```bash
    ls ~/passatempos/fe/assets | grep -i -E 'penguin|owl|umbrella|droplet'
    ```
-5. **Grave `~/passatempos/entrada.json`.** Omita a chave do jogo que não for gerar.
+6. **Grave `~/passatempos/entrada.json`.** Omita a chave do jogo que não for gerar. Na cruzadinha, escreva uma dica para cada palavra da grade (etapa 2).
    ```json
    {
      "cruzadinha": {
-       "nivel": 2, "titulo": "Cruzadinha",
-       "alvo": {"figura": 9, "figura_complete": 5, "texto": 6},
-       "itens": [
-         {"resposta": "Pinguim", "tipo": "figura", "figura": "Penguin"},
-         {"resposta": "Laranja", "tipo": "figura_complete", "figura": "Tangerine", "texto": "SUCO DE ___"},
-         {"resposta": "Baixo", "tipo": "texto", "texto": "OPOSTO DE ALTO"}
-       ]
+       "nivel": 2, "titulo": "Cruzadinha", "grade": "grade.json",
+       "dicas": {
+         "SAPO": {"tipo": "figura", "figura": "Frog"},
+         "BAIXO": {"tipo": "texto", "texto": "OPOSTO DE ALTO"},
+         "ARO": {"tipo": "texto", "texto": "___ DA RODA"},
+         "EA": {"tipo": "texto", "texto": "VOGAIS DE PERA"}
+       }
      },
      "caca_palavras": {
        "nivel": 2, "titulo": "A viagem da água",
@@ -211,19 +225,19 @@ As palavras e os temas usados ficam na memória persistente, no arquivo `/areas/
      "labirinto": {"nivel": 2, "inicio": "Rabbit", "fim": "Carrot", "frase": "Ajude o coelho a chegar até a cenoura!"}
    }
    ```
-   Na cruzadinha, `total` (padrão do nível) e `instrucao` são opcionais.
-6. **Gere os PDFs:**
+   Na cruzadinha, `titulo` e `instrucao` são opcionais.
+7. **Gere os PDFs:**
    ```bash
    cd ~/passatempos && python3 passatempos.py entrada.json passatempos.pdf --assets fe/assets
    ```
    Saem dois arquivos: `passatempos.pdf` (jogos) e `passatempos_respostas.pdf` (respostas).
-   - **Cruzadinha:** o relatório mostra `COLOCADAS x/total` e a contagem por tipo. Se ficar mais de uma palavra abaixo do alvo, ou se algum tipo ficar zerado sem querer, acrescente candidatos desse tipo (de preferência com letras comuns, como A, E, O, R) e rode de novo. Itens em `SEM DESENHO` ou `DICA LONGA DEMAIS` foram ignorados.
+   - **Cruzadinha:** um `ERRO` indica palavra da grade sem dica ou figura que não existe. `AVISO dica com palavra longa` pede uma dica mais curta.
    - **Caça-palavras:** um `ERRO` indica palavra contida em outra, palavra repetida ou palavras que não couberam. Ajuste o texto e rode de novo.
    - **Criptograma:** um `ERRO` indica letras diferentes demais. Encurte a frase.
    - **Embaralhadas:** itens em `SEM DESENHO` ou `SEM PISTA` foram ignorados. Confira se ficaram 6 palavras.
-7. **Confira** as respostas listadas: estão corretas e adequadas à série? Corrija e gere de novo se precisar.
-8. **Entregue os dois PDFs**, os jogos e as respostas, com uma linha de resumo: nível, jogos incluídos, número de folhas e tema do caça-palavras.
-9. **Registre no histórico** (seção "Histórico").
+8. **Confira** as respostas listadas: estão corretas e adequadas à série? Corrija e gere de novo se precisar.
+9. **Entregue os dois PDFs**, os jogos e as respostas, com uma linha de resumo: nível, jogos incluídos, número de folhas e tema do caça-palavras.
+10. **Registre no histórico** (seção "Histórico").
 
 ## Código do gerador
 
@@ -257,173 +271,12 @@ def uri(assets, nome):
 CREDITO = '<p class="foot">Ilustrações: Fluent Emoji (Microsoft, licença MIT)</p>'
 
 # ---------- cruzadinha ----------
-CZ_NIVEIS = {1: (10, (11, 9)), 2: (20, (17, 13)), 3: (20, (17, 13)), 4: (22, (17, 14)), 5: (24, (18, 15))}
-FONTE_MIN = 2.29  # mm (6,5 pt): dica de texto que não couber nesse tamanho é descartada
-LARG = 0.72  # largura média de uma letra maiúscula em negrito, em relação ao tamanho da fonte
-DIRS2 = {"A": (0, 1), "D": (1, 0)}
-PASTEL = ["#cfe8ff", "#d6f5d6", "#ffe0b3", "#f9d0e6", "#fff3a8", "#e3d7ff", "#c8f0ec"]
+# Grade cheia estilo Coquetel: o código fica em cruzadinha.py (seção "Código da cruzadinha").
+from cruzadinha import cruzadinha_html
 
 
-def cz_tentar(seed, itens, alvo, total, R, C):
-    rnd = random.Random(seed)
-    cand = itens[:]
-    rnd.shuffle(cand)
-    cand.sort(key=lambda x: -len(x["resp"]) + rnd.random() * 4)
-    grid, gdir, clues, placed = {}, {}, {}, []
-
-    def ok(w, r, c, d):
-        dr, dc = DIRS2[d]
-        cr, cc = r - dr, c - dc
-        if not (0 <= cr < R and 0 <= cc < C) or (cr, cc) in grid or (cr, cc) in clues:
-            return None
-        if not (0 <= r + dr * (len(w) - 1) < R and 0 <= c + dc * (len(w) - 1) < C):
-            return None
-        if (r + dr * len(w), c + dc * len(w)) in grid:
-            return None
-        cross = 0
-        for i, ch in enumerate(w):
-            k = (r + dr * i, c + dc * i)
-            if k in clues:
-                return None
-            if k in grid:
-                if grid[k] != ch or d in gdir[k]:
-                    return None
-                cross += 1
-            else:
-                for s in (1, -1):
-                    if (k[0] + dc * s, k[1] + dr * s) in grid:
-                        return None
-        return cross
-
-    cont = {t: 0 for t in alvo}
-    for it in cand:
-        if len(placed) >= total:
-            break
-        if cont[it["tipo"]] >= alvo[it["tipo"]] or any(p[0]["resp"] == it["resp"] for p in placed):
-            continue
-        w, best = it["resp"], None
-        if not placed:
-            d = rnd.choice("AD")
-            r, c = (rnd.randint(2, R - 3), 1) if d == "A" else (1, rnd.randint(2, C - 3))
-            if ok(w, r, c, d) is not None:
-                best = (0, r, c, d)
-        else:
-            opts = []
-            for (rr, cc), ch in list(grid.items()):
-                for i, wc in enumerate(w):
-                    if wc != ch:
-                        continue
-                    for d in "AD":
-                        if d in gdir[(rr, cc)]:
-                            continue
-                        dr, dc = DIRS2[d]
-                        x = ok(w, rr - dr * i, cc - dc * i, d)
-                        if x:
-                            opts.append((x + rnd.random() * 0.5, rr - dr * i, cc - dc * i, d))
-            best = max(opts) if opts else None
-        if not best:
-            continue
-        _, r, c, d = best
-        dr, dc = DIRS2[d]
-        for i, ch in enumerate(w):
-            k = (r + dr * i, c + dc * i)
-            grid[k] = ch
-            gdir.setdefault(k, set()).add(d)
-        clues[(r - dr, c - dc)] = (it, d)
-        placed.append((it, r, c, d))
-        cont[it["tipo"]] += 1
-    cross = sum(1 for k in gdir if len(gdir[k]) > 1)
-    score = len(placed) * 10 + cross * 3 - sum(abs(cont[t] - alvo[t]) for t in alvo) * 8
-    return score, grid, clues, placed, cont
-
-
-def cruzadinha(cfg, assets, tentativas):
-    nivel = int(cfg.get("nivel", 2))
-    total, (R, C) = CZ_NIVEIS[nivel]
-    total = int(cfg.get("total", total))
-    alvo = cfg["alvo"]
-    itens, faltando, longas = [], [], []
-    cm_est = min(186 / C, 235 / R, 18)
-    for it in cfg["itens"]:
-        it = dict(it, resp=normaliza(it["resposta"]))
-        if it["tipo"] not in alvo:
-            continue
-        if it["tipo"] in ("texto", "figura_complete"):
-            pedacos = re.split(r"\s+|(?<=-)", it["texto"])  # a legenda pode quebrar em espaços e depois de hífen
-            if max(len(x) for x in pedacos if x) * LARG * FONTE_MIN > cm_est - 3.0:
-                longas.append(it["texto"]); continue
-        if it["tipo"] != "texto" and not svg_path(assets, it["figura"]):
-            faltando.append(it["figura"]); continue
-        itens.append(it)
-    if faltando:
-        print("CRUZADINHA - SEM DESENHO (ignorados):", ", ".join(faltando))
-    if longas:
-        print("CRUZADINHA - DICA LONGA DEMAIS (ignoradas):", " | ".join(longas))
-    _, grid, clues, placed, cont = max((cz_tentar(s, itens, alvo, total, R, C) for s in range(tentativas)),
-                                       key=lambda x: x[0])
-    print(f"CRUZADINHA - COLOCADAS {len(placed)}/{total} | por tipo: {cont} | alvo: {alvo}")
-    for it, r, c, d in placed:
-        print(f"  {it['resp']:<12} {'→' if d == 'A' else '↓'} {it['tipo']:<16} {it.get('texto') or it.get('figura')}")
-
-    cells = list(grid) + list(clues)
-    r0, r1 = min(k[0] for k in cells), max(k[0] for k in cells)
-    c0, c1 = min(k[1] for k in cells), max(k[1] for k in cells)
-    rows, cols = r1 - r0 + 1, c1 - c0 + 1
-    cm = min(186 / cols, 235 / rows, 18)
-
-    def tabela(resp):
-        out = []
-        for r in range(r0, r1 + 1):
-            out.append("<tr>")
-            for c in range(c0, c1 + 1):
-                k = (r, c)
-                if k in grid:
-                    out.append(f'<td class="L"><div class="in">{grid[k] if resp else ""}</div></td>')
-                elif k in clues:
-                    it, d = clues[k]
-                    pad = "padding-right:2.4mm;" if d == "A" else "padding-bottom:2.4mm;"
-                    folga = 3.0 if d == "A" else 1.2
-                    seta = '<span class="ar ra">&#9654;</span>' if d == "A" else '<span class="ar rd">&#9660;</span>'
-                    if it["tipo"] == "figura":
-                        inner = f'<img class="fig" src="{uri(assets, it["figura"])}">'
-                    elif it["tipo"] == "figura_complete":
-                        fs = max(FONTE_MIN * 0.95, min(cm * 0.15, (cm - folga) / (len(it["texto"]) * LARG)))
-                        inner = (f'<div class="mx" style="{pad}"><img src="{uri(assets, it["figura"])}">'
-                                 f'<div style="font-size:{fs:.2f}mm">{it["texto"]}</div></div>')
-                    else:
-                        lw = max(len(x) for x in it["texto"].split())
-                        fs = max(FONTE_MIN, min(cm * 0.17, (cm - folga) / (lw * LARG)))
-                        inner = f'<div class="tx" style="font-size:{fs:.2f}mm;{pad}">{it["texto"]}</div>'
-                    bg = PASTEL[(r * 3 + c) % len(PASTEL)]
-                    out.append(f'<td class="Q" style="background:{bg}"><div class="in">{inner}{seta}</div></td>')
-                else:
-                    out.append('<td class="E"><div class="in"></div></td>')
-            out.append("</tr>")
-        return "\n".join(out)
-
-    css = f""".cz table {{ border-collapse:separate; border-spacing:0; margin:0 auto; table-layout:fixed; width:{cm*cols:.2f}mm; }}
-.cz td {{ width:{cm:.2f}mm; padding:0; border:1.1px solid #333; overflow:hidden; box-sizing:border-box; }}
-.cz td.E {{ border:none; }}
-.cz td.L {{ background:#fff; font-size:{cm*0.55:.2f}mm; font-weight:bold; color:#1c7ed6; text-align:center; }}
-.cz .in {{ width:{cm-0.6:.2f}mm; height:{cm-0.6:.2f}mm; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; }}
-.cz img.fig {{ width:{cm*0.7:.2f}mm; height:{cm*0.7:.2f}mm; position:relative; left:-{cm*0.06:.2f}mm; top:-{cm*0.04:.2f}mm; }}
-.cz .mx {{ display:flex; flex-direction:column; align-items:center; width:100%; box-sizing:border-box; }}
-.cz .mx img {{ width:{cm*0.42:.2f}mm; height:{cm*0.42:.2f}mm; }}
-.cz .mx div {{ font-weight:bold; line-height:1; margin-top:0.3mm; text-align:center; }}
-.cz .tx {{ font-weight:bold; line-height:1.05; color:#222; text-align:center; width:100%; box-sizing:border-box; padding:0 0.3mm; }}
-.cz .ar {{ position:absolute; color:#c2255c; font-size:{cm*0.2:.2f}mm; line-height:1; }}
-.cz .ra {{ right:0.2mm; top:50%; transform:translateY(-50%); }} .cz .rd {{ bottom:0.1mm; left:50%; transform:translateX(-50%); }}
-.cz .banner {{ background:#c2255c; color:#fff; border-radius:3.5mm; text-align:center; padding:1.2mm 5mm 1.6mm; margin-bottom:4mm; }}
-.cz .banner h1 {{ margin:0; font-size:16pt; color:#ffd43b; text-shadow:2px 2px 0 rgba(0,0,0,.35); }}
-.cz .banner p {{ margin:0.2mm 0 0; font-size:9.5pt; }}"""
-    titulo = cfg.get("titulo", "Cruzadinha")
-    instr = cfg.get("instrucao") or ("Escreva as respostas nos quadradinhos, seguindo a seta. Nas figuras, escreva o nome do que aparece.<br>"
-                                    "Onde tiver ___, complete a palavra. Sem acentos nem cedilha!")
-    jogo = (f'<div class="sec cz"><div class="banner"><h1>{titulo}</h1><p>{instr}</p></div>'
-            f'<table>{tabela(False)}</table></div>')
-    resp = (f'<div class="sec cz"><div class="banner"><h1>Respostas</h1><p>{titulo}</p></div>'
-            f'<table>{tabela(True)}</table></div>')
-    return css, jogo, resp, [it["resp"] for it, *_ in placed]
+def cruzadinha(cfg, assets, tentativas=None):
+    return cruzadinha_html(cfg, assets)
 
 
 # ---------- caça-palavras ----------
@@ -517,7 +370,7 @@ def caca(cfg, assets):
 .cp table {{ border-collapse:separate; border-spacing:0; background:#fff; border-radius:3mm; }}
 .cp td {{ width:{cell:.2f}mm; height:{cell:.2f}mm; text-align:center; font-weight:bold; font-size:{cell*0.55:.2f}mm; font-family:'DejaVu Sans',sans-serif; border-radius:1.5mm; padding:0; }}"""
     titulo = cfg["titulo"]
-    instr = "Procure e marque, no diagrama de letras,<br>as palavras em destaque no texto."
+    instr = "Procure e marque, no diagrama de letras, as palavras em destaque no texto."
     jogo = (f'<div class="sec cp"><div class="banner"><h1>Caça-palavras</h1><p>{instr}</p></div><h2>{titulo}</h2>'
             f'<p class="txt">{destaque}</p>'
             f'<div class="box"><table>{grade(False)}</table></div></div>')
@@ -670,7 +523,7 @@ def contas(cfg, seed=None):
         enun = ("Complete com os números de <b>1 a 9</b>, sem repetir em cada quadrado, para que todas as contas deem certo. "
                 "Faça as contas da esquerda para a direita e de cima para baixo.")
         return (f'<div class="banner"><h1>{"Respostas" if resp else "Desafio de contas"}</h1>'
-                f'<p>{"Desafio de contas" if resp else "Quadrado mágico das contas"}</p></div>'
+                f'{"<p>Desafio de contas</p>" if resp else ""}</div>'
                 f'{"" if resp else f"<p class=enun>{enun}</p>"}<div class="qs">{blocos}</div>')
 
     css = """.qd .banner { background:#2b8a3e; color:#fff; border-radius:3.5mm; text-align:center; padding:1.2mm 5mm 1.6mm; }
@@ -942,4 +795,445 @@ body { font-family:'Comic Sans MS','Comic Neue','DejaVu Sans',sans-serif; margin
 
 if __name__ == "__main__":
     main()
+```
+
+## Código da cruzadinha
+
+Grave em `~/passatempos/cruzadinha.py`, na mesma pasta do `passatempos.py`.
+
+```python
+#!/usr/bin/env python3
+"""Cruzadinha de grade cheia, estilo Coquetel: as dicas ficam dentro da grade, com setas retas e dobradas.
+
+Etapa 1 (montar): python3 cruzadinha.py montar --nivel 2 --dicionario palavras_cruzadinha.tsv --excluir excluir.txt --saida grade.json
+  -> preenche a grade com o dicionário e lista as palavras escolhidas
+Etapa 2 (desenhar): passatempos.py lê a grade e as dicas ("cruzadinha": {"grade": "grade.json", "dicas": {...}}) e chama cruzadinha_html.
+"""
+import argparse, base64, json, os, random, re, sys, time, unicodedata
+
+
+def normaliza(p):
+    p = unicodedata.normalize("NFD", p.upper())
+    return "".join(c for c in p if c.isalpha() and unicodedata.category(c) != "Mn")
+
+
+# nível -> (linhas, colunas, maior palavra)
+CZ_NIVEIS = {1: (9, 7, 6), 2: (12, 9, 8), 3: (12, 9, 9), 4: (13, 10, 9), 5: (13, 10, 10)}
+DENS = 0.22  # fração de casas de dica no miolo da grade
+DUAS_REAIS = set("AI AO AR AS CA DA DE DO EM EU FE HA IR JA LA MA ME MI NA NO OI OS OU PA PE PO RA RE SE SO TE TU UM UI VI VE".split())
+VOGAIS = "AEIOU"
+DUAS_ARTIF = {a + b for a in VOGAIS for b in VOGAIS if a != b}  # dica "VOGAIS DE X"
+EXCLUIR_SEMPRE = set("ODE ARA ATA TUA OVA SUMO APO URA UNI ABC ANA CAVO ROMA EGITO DUO ASPA USO ARRE".split())
+MAX_ARTIF = 2  # no máximo 2 pares de vogais por grade
+
+
+# ---------- montar a grade ----------
+def borda(r, c):
+    """Linha 0 e coluna 0 alternam dica e letra. A dica da borda segura a palavra reta e a da letra vizinha (seta dobrada)."""
+    if r == 0:
+        return "Q" if c % 2 == 0 else "L"
+    if c == 0:
+        return "Q" if r % 2 == 0 else "L"
+    return None
+
+
+def runs(m, R, C):
+    out = []
+    for r in range(R):
+        c = 0
+        while c < C:
+            if m[r][c]:
+                s = c
+                while c < C and m[r][c]:
+                    c += 1
+                if c - s >= 2:
+                    out.append([(r, k) for k in range(s, c)])
+            else:
+                c += 1
+    for c in range(C):
+        r = 0
+        while r < R:
+            if m[r][c]:
+                t = r
+                while r < R and m[r][c]:
+                    r += 1
+                if r - t >= 2:
+                    out.append([(k, c) for k in range(t, r)])
+            else:
+                r += 1
+    return out
+
+
+def valido(m, R, C, max_len, max_soltas):
+    H = [[False] * C for _ in range(R)]
+    V = [[False] * C for _ in range(R)]
+    for x in runs(m, R, C):
+        if len(x) > max_len:
+            return False
+        horiz = x[0][0] == x[1][0]
+        for r, c in x:
+            (H if horiz else V)[r][c] = True
+    soltas = 0
+    for r in range(R):
+        for c in range(C):
+            if m[r][c]:
+                if not H[r][c] and not V[r][c]:
+                    return False  # letra fora de qualquer palavra
+                if (not H[r][c] or not V[r][c]) and r > 0 and c > 0:
+                    soltas += 1
+            else:
+                dirr = c + 2 < C and m[r][c + 1] and m[r][c + 2]
+                baixo = r + 2 < R and m[r + 1][c] and m[r + 2][c]
+                dobra = (r == 0 and c + 1 < C) or (c == 0 and r + 1 < R and m[r + 1][1])
+                if not (dirr or baixo or dobra):
+                    return False  # casa de dica sem palavra
+    return soltas <= max_soltas
+
+
+def padrao(R, C, rnd, max_len, max_soltas):
+    for _ in range(5000):
+        m = [[borda(r, c) != "Q" if borda(r, c) else True for c in range(C)] for r in range(R)]
+        alvo = int(DENS * (R - 1) * (C - 1))
+        cand = [(r, c) for r in range(1, R) for c in range(1, C)]
+        rnd.shuffle(cand)
+        n = 0
+        for r, c in cand:
+            if n >= alvo:
+                break
+            if any(0 <= r + dr < R and 0 <= c + dc < C and not m[r + dr][c + dc] and borda(r + dr, c + dc) is None
+                   for dr, dc in ((0, 1), (1, 0), (0, -1), (-1, 0))):
+                continue
+            m[r][c] = False
+            n += 1
+        for _ in range(40):
+            longa = [x for x in runs(m, R, C) if len(x) > max_len]
+            if not longa:
+                break
+            x = longa[0]
+            k = rnd.randint(2, len(x) - 3) if len(x) >= 5 else 2
+            m[x[k][0]][x[k][1]] = False
+        if valido(m, R, C, max_len, max_soltas):
+            return m
+    return None
+
+
+def preencher(R, C, seed, banco, max_len, max_soltas, max_nos=3000):
+    """Sorteia o padrão e preenche palavra por palavra, sempre pela que tem menos opções."""
+    rnd = random.Random(seed)
+    m = padrao(R, C, rnd, max_len, max_soltas)
+    if not m:
+        return None
+    slots = runs(m, R, C)
+    por_casa = {}
+    for i, sl in enumerate(slots):
+        for k, cell in enumerate(sl):
+            por_casa.setdefault(cell, []).append(i)
+    letra, usadas, feito = {}, set(), [None] * len(slots)
+    st = {"nos": 0, "artif": 0}
+    idx, porlen, pref = banco["idx"], banco["porlen"], banco["pref"]
+
+    def candidatos(i):
+        sl = slots[i]
+        conj = None
+        for k, cell in enumerate(sl):
+            ch = letra.get(cell)
+            if ch:
+                s2 = idx.get((len(sl), k, ch), set())
+                conj = s2 if conj is None else conj & s2
+                if not conj:
+                    return []
+        base = porlen.get(len(sl), set()) if conj is None else conj
+        return [w for w in base if w not in usadas]
+
+    def dfs():
+        st["nos"] += 1
+        if st["nos"] > max_nos:
+            return False
+        livres = [i for i in range(len(slots)) if feito[i] is None]
+        if not livres:
+            return True
+        best, bc = None, None
+        for i in livres:
+            cs = candidatos(i)
+            if not cs:
+                return False
+            if best is None or len(cs) < len(bc):
+                best, bc = i, cs
+                if len(cs) == 1:
+                    break
+        rnd.shuffle(bc)
+        bc.sort(key=lambda w: (0 if w in pref else 1 if len(w) > 2 or w in DUAS_REAIS else 2) + rnd.random() * 0.8)
+        sl = slots[best]
+        for w in bc[:30]:
+            art = w in DUAS_ARTIF
+            if art and st["artif"] >= MAX_ARTIF:
+                continue
+            novos = [cell for cell in sl if cell not in letra]
+            for k, cell in enumerate(sl):
+                letra[cell] = w[k]
+            feito[best] = w
+            usadas.add(w)
+            st["artif"] += art
+            if all(candidatos(j) for cell in novos for j in por_casa[cell] if feito[j] is None) and dfs():
+                return True
+            st["artif"] -= art
+            usadas.discard(w)
+            feito[best] = None
+            for cell in novos:
+                del letra[cell]
+            if st["nos"] > max_nos:
+                return False
+        return False
+
+    if not dfs():
+        return None
+    return [[letra[(r, c)] if m[r][c] else "Q" for c in range(C)] for r in range(R)]
+
+
+def analisar(g):
+    """Lista as palavras e diz em que casa de dica fica cada uma (seta reta ou dobrada)."""
+    R, C = len(g), len(g[0])
+    pal = []
+    for r in range(R):
+        c = 0
+        while c < C:
+            if g[r][c] != "Q":
+                s = c
+                while c < C and g[r][c] != "Q":
+                    c += 1
+                if c - s >= 2:
+                    pal.append({"palavra": "".join(g[r][s:c]), "dir": "A", "r": r, "c": s})
+            else:
+                c += 1
+    for c in range(C):
+        r = 0
+        while r < R:
+            if g[r][c] != "Q":
+                t = r
+                while r < R and g[r][c] != "Q":
+                    r += 1
+                if r - t >= 2:
+                    pal.append({"palavra": "".join(g[i][c] for i in range(t, r)), "dir": "D", "r": t, "c": c})
+            else:
+                r += 1
+    for p in pal:
+        if p["dir"] == "A":
+            if p["c"] == 0:
+                p.update(q=[p["r"] - 1, 0], seta="dobrada", saida="baixo")
+            else:
+                p.update(q=[p["r"], p["c"] - 1], seta="reta", saida="dir")
+        else:
+            if p["r"] == 0:
+                p.update(q=[0, p["c"] - 1], seta="dobrada", saida="dir")
+            else:
+                p.update(q=[p["r"] - 1, p["c"]], seta="reta", saida="baixo")
+    carga = {}
+    for p in pal:
+        carga.setdefault(tuple(p["q"]), []).append(p)
+    qs = [(r, c) for r in range(R) for c in range(C) if g[r][c] == "Q"]
+    mudou = True
+    while mudou:  # casa de dica vazia puxa uma palavra vizinha com seta dobrada
+        mudou = False
+        for q in qs:
+            if carga.get(q):
+                continue
+            r, c = q
+            for p in pal:
+                orig = tuple(p["q"])
+                if len(carga.get(orig, [])) < 2:
+                    continue
+                if p["dir"] == "A" and (p["r"], p["c"]) == (r + 1, c):
+                    p.update(q=[r, c], seta="dobrada", saida="baixo")
+                elif p["dir"] == "D" and (p["r"], p["c"]) == (r, c + 1):
+                    p.update(q=[r, c], seta="dobrada", saida="dir")
+                else:
+                    continue
+                carga[orig].remove(p)
+                carga[q] = [p]
+                mudou = True
+                break
+    return pal, [q for q in qs if not carga.get(q)]
+
+
+def montar(a):
+    R, C, max_len = CZ_NIVEIS[a.nivel]
+    excluir = set(EXCLUIR_SEMPRE)
+    if a.excluir and os.path.exists(a.excluir):
+        excluir |= {normaliza(w) for w in re.split(r"[\s,|]+", open(a.excluir, encoding="utf-8").read()) if w}
+    niveis = {}
+    for linha in open(a.dicionario, encoding="utf-8").read().splitlines()[1:]:
+        partes = linha.split("\t")
+        if len(partes) >= 2 and partes[0] not in excluir:
+            niveis[partes[0]] = int(partes[1])
+    pref = {w for w, nv in niveis.items() if nv <= a.nivel}
+    apoio = {w for w, nv in niveis.items() if nv <= a.nivel + 2} - pref
+    todas = pref | apoio | DUAS_REAIS | DUAS_ARTIF
+    idx, porlen = {}, {}
+    for w in todas:
+        porlen.setdefault(len(w), set()).add(w)
+        for k, ch in enumerate(w):
+            idx.setdefault((len(w), k, ch), set()).add(w)
+    banco = {"idx": idx, "porlen": porlen, "pref": pref}
+    print(f"CRUZADINHA - N{a.nivel} | grade {R}x{C} | {len(pref)} palavras do nível + {len(apoio)} de apoio | excluídas {len(excluir)}")
+    melhores, t0, seed = [], time.time(), a.seed
+    while len(melhores) < a.grades and time.time() - t0 < a.tempo:
+        g = preencher(R, C, seed, banco, max_len, int((R - 1) * (C - 1) * 0.12))
+        seed += 1
+        if not g:
+            continue
+        pal, vazias = analisar(g)
+        cob = {}
+        for p in pal:
+            for k in range(len(p["palavra"])):
+                cell = (p["r"], p["c"] + k) if p["dir"] == "A" else (p["r"] + k, p["c"])
+                cob[cell] = cob.get(cell, 0) + 1
+        soltas = sum(1 for (r, c), n in cob.items() if n == 1 and r > 0 and c > 0)
+        nota = -len(vazias) * 6 - soltas * 1.5
+        for p in pal:
+            w = p["palavra"]
+            if len(w) == 2:
+                nota -= 5 if w in DUAS_ARTIF else 3
+            elif w in pref:
+                nota += len(w) + (2 if len(w) >= 4 else 0)
+            else:
+                nota -= 3
+        melhores.append((nota, g, pal))
+    if not melhores:
+        sys.exit("ERRO cruzadinha: nenhuma grade fechou. Aumente --tempo.")
+    nota, g, pal = max(melhores, key=lambda x: x[0])
+    json.dump({"nivel": a.nivel, "grade": g, "palavras": pal}, open(a.saida, "w", encoding="utf-8"), ensure_ascii=False)
+    print(f"ESCOLHIDA entre {len(melhores)} grades ({time.time() - t0:.0f}s) -> {a.saida}")
+    for row in g:
+        print("  " + " ".join("#" if x == "Q" else x for x in row))
+    print("PALAVRAS (escreva uma dica para cada uma):")
+    for p in sorted(pal, key=lambda p: (len(p["palavra"]), p["palavra"])):
+        extra = "" if p["palavra"] in pref or len(p["palavra"]) == 2 else "  (apoio, nível acima)"
+        duo = "  (divide a casa)" if sum(1 for o in pal if o["q"] == p["q"]) == 2 else ""
+        print(f"  {p['palavra']:<11} {'→' if p['dir'] == 'A' else '↓'}{extra}{duo}")
+
+
+# ---------- desenhar ----------
+FONTE_MIN = 2.29  # mm (6,5 pt)
+LARG = 0.72
+PASTEL = ["#cfe8ff", "#d6f5d6", "#ffe0b3", "#f9d0e6", "#fff3a8", "#e3d7ff", "#c8f0ec"]
+SETA_BA = ('<svg class="sb" viewBox="0 0 10 10"><path d="M2.5 0 V6.5 H8" fill="none" stroke="#c2255c" stroke-width="1.6"/>'
+           '<path d="M7 4 L10 6.5 L7 9 Z" fill="#c2255c"/></svg>')
+SETA_BD = ('<svg class="sb" viewBox="0 0 10 10"><path d="M0 2.5 H6.5 V8" fill="none" stroke="#c2255c" stroke-width="1.6"/>'
+           '<path d="M4 7 L6.5 10 L9 7 Z" fill="#c2255c"/></svg>')
+
+
+def _svg(assets, nome):
+    d = os.path.join(assets, nome, "Color")
+    if not os.path.isdir(d):
+        return None
+    f = sorted(x for x in os.listdir(d) if x.endswith(".svg"))
+    return os.path.join(d, f[0]) if f else None
+
+
+def cruzadinha_html(cfg, assets):
+    dados = json.load(open(cfg["grade"], encoding="utf-8"))
+    dicas = {normaliza(k): v for k, v in cfg["dicas"].items()}
+    g, pal = dados["grade"], dados["palavras"]
+    R, C = len(g), len(g[0])
+    faltam = [p["palavra"] for p in pal if p["palavra"] not in dicas]
+    if faltam:
+        sys.exit("ERRO cruzadinha: faltam dicas para: " + ", ".join(faltam))
+    sem = [k for k, v in dicas.items() if v["tipo"] == "figura" and not _svg(assets, v["figura"])]
+    if sem:
+        sys.exit("ERRO cruzadinha: figura não encontrada para: " + ", ".join(sem))
+    longas = [v["texto"] for v in dicas.values() if v["tipo"] == "texto"
+              and max(len(x) for x in v["texto"].replace("___", "XX").split()) > 7]
+    if longas:
+        print("CRUZADINHA - AVISO dica com palavra longa:", " | ".join(longas))
+    cm = min(186 / C, 240 / R, 24)
+    uri = lambda n: "data:image/svg+xml;base64," + base64.b64encode(open(_svg(assets, n), "rb").read()).decode()
+    porq, marca = {}, {}
+    for p in pal:
+        porq.setdefault(tuple(p["q"]), []).append(p)
+        if p["seta"] == "dobrada":
+            marca[(p["r"], p["c"])] = SETA_BA if p["dir"] == "A" else SETA_BD
+
+    def conteudo(p, meia):
+        d = dicas[p["palavra"]]
+        alt = cm * (0.5 if meia else 1) - (0.8 if meia else 1.2)
+        if d["tipo"] == "figura":
+            sz = min(cm * 0.7, alt)
+            return f'<img src="{uri(d["figura"])}" style="width:{sz:.2f}mm;height:{sz:.2f}mm">'
+        t = d["texto"]
+        lw = max(len(x) for x in t.replace("___", "XX").split())
+        fs = max(FONTE_MIN, min(cm * (0.15 if meia else 0.17), (cm - 3.2) / (lw * LARG)))
+        return f'<div class="tx" style="font-size:{fs:.2f}mm">{t.replace("___", chr(60) + "span class=lac></span>")}</div>'
+
+    def seta(p):
+        if p["seta"] == "dobrada":
+            return ""
+        return '<span class="ar ra">&#9654;</span>' if p["saida"] == "dir" else '<span class="ar rd">&#9660;</span>'
+
+    def tabela(resp):
+        out = []
+        for r in range(R):
+            out.append("<tr>")
+            for c in range(C):
+                if g[r][c] != "Q":
+                    out.append(f'<td class="L"><div class="in">{marca.get((r, c), "")}{g[r][c] if resp else ""}</div></td>')
+                    continue
+                bg = PASTEL[(r * 3 + c * 5) % len(PASTEL)]
+                ps = porq.get((r, c), [])
+                if not ps:
+                    out.append(f'<td class="Q V" style="background:{bg}"><div class="in"></div></td>')
+                elif len(ps) == 1:
+                    p = ps[0]
+                    out.append(f'<td class="Q" style="background:{bg}"><div class="in"><div class="h1 {p["saida"]}">'
+                               f'{conteudo(p, False)}</div>{seta(p)}</div></td>')
+                else:
+                    cima = next((p for p in ps if p["saida"] == "dir"), ps[0])
+                    baixo = next(p for p in ps if p is not cima)
+                    bg2 = PASTEL[(r * 3 + c * 5 + 3) % len(PASTEL)]
+                    out.append(f'<td class="Q" style="background:{bg}"><div class="in duo">'
+                               f'<div class="h2 {cima["saida"]}">{conteudo(cima, True)}{seta(cima)}</div>'
+                               f'<div class="h2 {baixo["saida"]}" style="background:{bg2}">{conteudo(baixo, True)}{seta(baixo)}</div>'
+                               f'</div></td>')
+            out.append("</tr>")
+        return "\n".join(out)
+
+    print(f"CRUZADINHA - grade {R}x{C} | {len(pal)} palavras | figuras {sum(1 for v in dicas.values() if v['tipo'] == 'figura')}")
+    css = f""".cz table {{ border-collapse:collapse; margin:0 auto; table-layout:fixed; width:{cm*C:.2f}mm; border:2px solid #222; }}
+.cz td {{ width:{cm:.2f}mm; height:{cm:.2f}mm; padding:0; border:1px solid #444; overflow:hidden; box-sizing:border-box; }}
+.cz td.L {{ background:#fff; font-size:{cm*0.55:.2f}mm; font-weight:bold; color:#1c7ed6; text-align:center; }}
+.cz .in {{ width:100%; height:{cm-0.3:.2f}mm; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }}
+.cz .in.duo {{ flex-direction:column; }}
+.cz .h1 {{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }}
+.cz .h2 {{ width:100%; height:50%; position:relative; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }}
+.cz .h2 + .h2 {{ border-top:1px solid #444; }}
+.cz .dir {{ padding-right:2.2mm; }} .cz .baixo {{ padding-bottom:1.8mm; }}
+.cz .h2.dir {{ padding-right:2mm; }} .cz .h2.baixo {{ padding-bottom:1.4mm; }}
+.cz .tx {{ font-weight:bold; line-height:1.05; text-align:center; padding:0 0.4mm; }}
+.cz .lac {{ display:inline-block; width:1.7em; border-bottom:0.3mm solid #222; }}
+.cz .ar {{ position:absolute; color:#c2255c; font-size:{cm*0.18:.2f}mm; line-height:1; }}
+.cz .ra {{ right:0.2mm; top:50%; transform:translateY(-50%); }} .cz .rd {{ bottom:0; left:50%; transform:translateX(-50%); }}
+.cz .sb {{ position:absolute; left:0.3mm; top:0.3mm; width:{cm*0.3:.2f}mm; height:{cm*0.3:.2f}mm; }}
+.cz td.V {{ background-image:radial-gradient(#ffffff 18%, transparent 19%); background-size:3mm 3mm; }}
+.cz .banner {{ background:#c2255c; color:#fff; border-radius:3.5mm; text-align:center; padding:1.2mm 5mm 1.6mm; margin-bottom:4mm; }}
+.cz .banner h1 {{ margin:0; font-size:16pt; color:#ffd43b; text-shadow:2px 2px 0 rgba(0,0,0,.35); }}
+.cz .banner p {{ margin:0.2mm 0 0; font-size:9.5pt; }}"""
+    titulo = cfg.get("titulo", "Cruzadinha")
+    instr = cfg.get("instrucao") or "Escreva o nome de cada definição nos quadradinhos seguindo as setas."
+    jogo = f'<div class="sec cz"><div class="banner"><h1>{titulo}</h1><p>{instr}</p></div><table>{tabela(False)}</table></div>'
+    resp = f'<div class="sec cz"><div class="banner"><h1>Respostas</h1><p>{titulo}</p></div><table>{tabela(True)}</table></div>'
+    return css, jogo, resp, [p["palavra"] for p in pal]
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    sp = ap.add_subparsers(dest="cmd", required=True)
+    m = sp.add_parser("montar")
+    m.add_argument("--nivel", type=int, default=2)
+    m.add_argument("--dicionario", default="palavras_cruzadinha.tsv")
+    m.add_argument("--excluir")
+    m.add_argument("--saida", default="grade.json")
+    m.add_argument("--seed", type=int, default=1)
+    m.add_argument("--grades", type=int, default=300)
+    m.add_argument("--tempo", type=int, default=150)
+    a = ap.parse_args()
+    montar(a)
 ```
